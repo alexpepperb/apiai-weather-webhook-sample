@@ -34,11 +34,11 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    baseurl = "https://api.spotify.com/v1/artists/"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
-    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
+    yql_url = baseurl + urllib.parse.urlencode({yql_query}) + "/top-tracks?country=GB"
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
@@ -56,32 +56,21 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
+    tracks = data.get('tracks')
+    if tracks is None:
         return {}
 
-    result = query.get('results')
+    album = tracks.get('album')
     if result is None:
         return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
+    
+    artists = album.get('artists')
+    if result is None:
         return {}
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    speech = "The top track for " + artists.get('name') + " is " + album.get('name')
 
     print("Response:")
     print(speech)
