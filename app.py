@@ -38,7 +38,7 @@ def processRequest(req):
     yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
-    yql_url = baseurl + urllib.parse.urlencode({yql_query}) + "/top-tracks?country=GB"
+    yql_url = baseurl + yql_query + "/top-tracks?country=GB"
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
