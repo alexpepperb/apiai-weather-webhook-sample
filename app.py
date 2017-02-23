@@ -54,6 +54,8 @@ def makeYqlQuery(req):
     city = parameters.get("uriartist")
     if city is None:
         return None
+    
+    return city
 
 
 def makeWebhookResult(data):
