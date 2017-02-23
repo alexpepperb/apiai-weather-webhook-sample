@@ -15,7 +15,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['GET', 'POST'])
+@app.route('/webhook', methods=['GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -27,7 +27,7 @@ def webhook():
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
-    r.headers['Accept'] = 'application/json'
+    r.headers['Content-Type'] = 'application/json'
     return r
 
 
@@ -51,8 +51,6 @@ def makeYqlQuery(req):
     city = parameters.get("uriartist")
     if city is None:
         return None
-
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
 def makeWebhookResult(data):
