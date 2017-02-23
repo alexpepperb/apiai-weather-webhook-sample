@@ -34,11 +34,11 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    baseurl = "'https://api.spotify.com/v1/artists/"
+    baseurl = "https://api.spotify.com/v1/artists/"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
-    yql_url = baseurl + yql_query + "/top-tracks?country=GB'"
+    yql_url = baseurl + yql_query + "/top-tracks?country=GB"
     headers = {
     'Accept': 'application/json',
 }
