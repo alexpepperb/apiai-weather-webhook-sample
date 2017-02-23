@@ -42,7 +42,7 @@ def processRequest(req):
     headers = {
     'Accept': 'application/json',
 }
-    result = requests.get(yql_url, headers=headers)
+    result = requests.get('yql_url', headers=headers)
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
