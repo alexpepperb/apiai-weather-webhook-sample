@@ -40,13 +40,16 @@ def processRequest(req):
     if yql_query is None:
         return {}
     yql_url = baseurl + yql_query + "/top-tracks?country=GB'"
-    headers = {
-    'Accept: application/json',
+headers = {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer BQC0YxkTAZx8Cu9GaIY3ENZ6-2-ZF8lEIWrLQoazuF_S15GIhe0_w3sbS48ur6lTJomu21w0q418PDiVANuFLDMrUW_igTnp_PHaQw6DWSEskK8MLAaMguwXn3VeY3X0cs8ACVSUah64E2fN54vAgo4',
 }
-    result = requests.get(yql_url, headers=headers)
+    result = requests.get('https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP/top-tracks?country=GB', headers=headers)
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
+
+###result = requests.get(yql_url, headers=headers)
 
 
 def makeYqlQuery(req):
