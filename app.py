@@ -43,7 +43,7 @@ def processRequest(req):
     'Accept': 'application/json',
     'Authorization': 'Bearer BQC0YxkTAZx8Cu9GaIY3ENZ6-2-ZF8lEIWrLQoazuF_S15GIhe0_w3sbS48ur6lTJomu21w0q418PDiVANuFLDMrUW_igTnp_PHaQw6DWSEskK8MLAaMguwXn3VeY3X0cs8ACVSUah64E2fN54vAgo4',
 }
-    result = urllib.request.urlopen('https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP/top-tracks?country=GB', headers=headers).read()
+    result = urllib.request('https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP/top-tracks?country=GB', headers=headers)
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
