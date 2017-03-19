@@ -40,7 +40,7 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    targett = "Be The One"
+    targett = str("Be The One")
     if targett is None:
         return {}
     data = trackpos(dictplay)
