@@ -74,11 +74,13 @@ def makeYqlQuery(req):
     return city
 
 def responderr(playl4):
+    speech = str(playl4)
+    
     print("Response:")
-    print(playl4)
+    print(speech)
 
     return {
-        "speech": str(playl4),
+        "speech": speech,
         "displayText": speech,
         "data": data,
         # "contextOut": [],
