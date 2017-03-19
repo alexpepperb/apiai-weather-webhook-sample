@@ -44,17 +44,7 @@ def processRequest(req):
     if targett is None:
         return {}
     data = trackpos(dictplay)
-    print("Response:")
-    print(playl4)
-
-    return {
-        "speech": str(playl4),
-        "displayText": speech,
-        "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
-    return res
+    
 
 ###result = requests.get(yql_url, headers=headers)
 
@@ -70,8 +60,8 @@ def trackprint(x):
         for i, tracks in enumerate(x[item]['items']):
             if tracks['track']['name'].lower().startswith(str(targett).lower()):
                 playl4[tracks] = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
-    print(playl4)
-    return playl4
+    res = responderr(playl4)
+    return res
         
 def makeYqlQuery(req):
     result = req.get("result")
@@ -81,6 +71,18 @@ def makeYqlQuery(req):
         return None
     
     return city
+
+def responderr(playl4):
+    print("Response:")
+    print(playl4)
+
+    return {
+        "speech": str(playl4),
+        "displayText": speech,
+        "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 
 if __name__ == '__main__':
