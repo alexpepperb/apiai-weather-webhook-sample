@@ -6,11 +6,16 @@ standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 import json
 import os
-import requests
+import spotipy
 
 from flask import Flask
 from flask import request
 from flask import make_response
+from spotipy.oauth2 import SpotifyClientCredentials
+
+client_credentials_manager = SpotifyClientCredentials("36919004726b47d4b7ecbef19aebabc8","a074aa09a1664c79a45c35b4526d67f4","http://localhost:1410/")
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+dictplay = {'The Pop List' : '1Tv8NFvQY2aRuGi2JrOeyN', 'Teen Pop Party' : '1WXwg9vAfbVcotgkN69UFg', 'Chilled Pop Hits' : '3zn59U9FkTNzQwE0T5mW4I', 'Happy Pop Hits' : '5MaioFUFxRYTObp7fUfphO', 'Pop Acoustic' : '4gcaLiHMzbb44aXVrSiJx5'}
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -35,50 +40,10 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    baseurl = "'https://api.spotify.com/v1/artists/"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
+    targett = makeYqlQuery(req)
+    if targett is None:
         return {}
-    yql_url = baseurl + yql_query + "/top-tracks?country=GB'"
-    headers = {
-    'Accept': 'application/json',
-    'Authorization': 'Bearer BQC0YxkTAZx8Cu9GaIY3ENZ6-2-ZF8lEIWrLQoazuF_S15GIhe0_w3sbS48ur6lTJomu21w0q418PDiVANuFLDMrUW_igTnp_PHaQw6DWSEskK8MLAaMguwXn3VeY3X0cs8ACVSUah64E2fN54vAgo4',
-}
-    result = requests.get('https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP/top-tracks?country=GB', headers=headers)
-    data = json.loads(result)
-    res = makeWebhookResult(data)
-    return res
-
-###result = requests.get(yql_url, headers=headers)
-
-
-def makeYqlQuery(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("uriartist")
-    if city is None:
-        return None
-    
-    return city
-
-
-def makeWebhookResult(data):
-    tracks = data.get('tracks')
-    if tracks is None:
-        return {}
-
-    album = tracks.get('album')
-    if result is None:
-        return {}
-    
-    artists = album.get('artists')
-    if result is None:
-        return {}
-
-    # print(json.dumps(item, indent=4))
-
-    speech = "The top track for " + artists.get('name') + " is " + album.get('name')
-
+    data = trackpos(dictplay)
     print("Response:")
     print(speech)
 
@@ -89,6 +54,30 @@ def makeWebhookResult(data):
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
     }
+    return res
+
+###result = requests.get(yql_url, headers=headers)
+
+def trackpos(playdic):
+    playl3 = {}
+    for item in playdic:
+        playl3[item] = sp.user_playlist_tracks('spotify_uk_', playlist_id=playdic[item], fields='items(track(name,album(name)))', offset=0, market=None)
+        trackprint(playl3)
+
+def trackprint(x):
+    for item in x:
+        for i, tracks in enumerate(x[item]['items']):
+            if tracks['track']['name'].lower().startswith(str(targett).lower()):
+                speech = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
+        
+def makeYqlQuery(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    city = parameters.get("uriartist")
+    if city is None:
+        return None
+    
+    return city
 
 
 if __name__ == '__main__':
