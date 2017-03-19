@@ -45,10 +45,10 @@ def processRequest(req):
         return {}
     data = trackpos(dictplay)
     print("Response:")
-    print(speech)
+    print(playl4)
 
     return {
-        "speech": speech,
+        "speech": str(playl4),
         "displayText": speech,
         "data": data,
         # "contextOut": [],
@@ -65,10 +65,13 @@ def trackpos(playdic):
         trackprint(playl3)
 
 def trackprint(x):
+    playl4 = {}
     for item in x:
         for i, tracks in enumerate(x[item]['items']):
             if tracks['track']['name'].lower().startswith(str(targett).lower()):
-                speech = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
+                playl4[tracks] = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
+    print(playl4)
+    return playl4
         
 def makeYqlQuery(req):
     result = req.get("result")
