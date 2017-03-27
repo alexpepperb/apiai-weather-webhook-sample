@@ -53,14 +53,14 @@ def trackpos(playdic):
     playl3 = {}
     for item in playdic:
         playl3[item] = sp.user_playlist_tracks('spotify_uk_', playlist_id=playdic[item], fields='items(track(name,album(name)))', offset=0, market=None)
-        trackprint(playl3)
+    trackprint(playl3)
 
 def trackprint(x):
     playl4 = {}
     for item in x:
         for i, tracks in enumerate(x[item]['items']):
             if tracks['track']['name'].lower().startswith(str(targett).lower()):
-                playl4[tracks] = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
+                playl4[len(playl4)+1] = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
     res = responderr(playl4)
     return res
         
@@ -74,7 +74,8 @@ def makeYqlQuery(req):
     return city
 
 def responderr(playl4):
-    speech = str(playl4)
+    global speech
+    speech = playl4
     
     print("Response:")
     print(speech)
