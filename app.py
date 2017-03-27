@@ -65,6 +65,7 @@ def trackprint(x):
                 playl4[len(playl4)+1] = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
     res = responderr(playl4)
     return res
+    print res
         
 def makeYqlQuery(req):
     result = req.get("result")
