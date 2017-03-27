@@ -54,6 +54,7 @@ def trackpos(playdic):
     for item in playdic:
         playl3[item] = sp.user_playlist_tracks('spotify_uk_', playlist_id=playdic[item], fields='items(track(name,album(name)))', offset=0, market=None)
     trackprint(playl3)
+    return res
 
 def trackprint(x):
     playl4 = {}
