@@ -83,7 +83,7 @@ def responderr(playl4):
     return {
         "speech": speech,
         "displayText": speech,
-        "data": data,
+        "data": speech,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
     }
