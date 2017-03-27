@@ -41,6 +41,7 @@ def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     global targett
+    global res
     targett = "Be The One"
     if targett is None:
         return {}
