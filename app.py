@@ -59,6 +59,7 @@ def trackpos(playdic):
 
 def trackprint(x):
     playl4 = {}
+    global res
     for item in x:
         for i, tracks in enumerate(x[item]['items']):
             if tracks['track']['name'].lower().startswith(str(targett).lower()):
