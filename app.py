@@ -47,7 +47,7 @@ def processRequest(req):
         return {}
     global targett
     targett = makeYqlQuery(req)
-    if targett is None:
+    if len(targett) == 0:
         res = emptyresponderr(z)
     else:
         res = trackpos(dictplay)
