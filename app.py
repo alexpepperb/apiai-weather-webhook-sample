@@ -41,12 +41,11 @@ def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     global targett
-    global res
     targett = "Be The One"
     if targett is None:
         return {}
-    data = trackpos(dictplay)
-    
+    res = trackpos(dictplay)
+    return res
 
 ###result = requests.get(yql_url, headers=headers)
 
@@ -54,19 +53,17 @@ def trackpos(playdic):
     playl3 = {}
     for item in playdic:
         playl3[item] = sp.user_playlist_tracks('spotify_uk_', playlist_id=playdic[item], fields='items(track(name,album(name)))', offset=0, market=None)
-    trackprint(playl3)
+    res = trackprint(playl3)
     return res
 
 def trackprint(x):
     playl4 = {}
-    global res
     for item in x:
         for i, tracks in enumerate(x[item]['items']):
             if tracks['track']['name'].lower().startswith(str(targett).lower()):
                 playl4[len(playl4)+1] = "%s is number %s in %s" % (tracks['track']['name'], i + 1, item)
     res = responderr(playl4)
     return res
-    print(res)
         
 def makeYqlQuery(req):
     result = req.get("result")
