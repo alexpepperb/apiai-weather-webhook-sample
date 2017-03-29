@@ -45,10 +45,6 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    global targett
-    targett = "Be The One"
-    if targett is None:
-        return {}
     res = trackpos(dictplay)
     return res
 
@@ -63,6 +59,7 @@ def trackpos(playdic):
 
 def trackprint(x):
     playl4 = {}
+    targett = makeYqlQuery(req)
     for item in x:
         for i, tracks in enumerate(x[item]['items']):
             if tracks['track']['name'].lower().startswith(str(targett).lower()):
