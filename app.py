@@ -82,7 +82,10 @@ def makeYqlQuery(req):
 
 def responderr(playl4):
     global speech
-    speech = str(playl4)
+    if len(playl4) == 0:
+        speech = str("It doesn't look like that track is in any playlists")
+    else:
+        speech = str(playl4)
     
     print("Response:")
     print(speech)
@@ -97,7 +100,7 @@ def responderr(playl4):
 
 def emptyresponderr(req):
     global zspeech
-    zspeech = str("It's not in any playlists, sad times")
+    zspeech = str("That track wasn't recognised, try it again")
     
     print("Response:")
     print(zspeech)
