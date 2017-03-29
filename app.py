@@ -35,6 +35,8 @@ def webhook():
     print(res)
     print("this is an empty line")
     r = make_response(res)
+    print(r)
+    print("this is an empty line")
     r.headers['Content-Type'] = 'application/json'
     print(r)
     return r
