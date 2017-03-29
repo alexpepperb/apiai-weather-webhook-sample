@@ -81,7 +81,7 @@ def makeYqlQuery(req):
 
 def responderr(playl4):
     global speech
-    speech = playl4
+    speech = str(playl4)
     
     print("Response:")
     print(speech)
