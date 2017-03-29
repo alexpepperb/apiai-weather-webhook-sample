@@ -48,8 +48,9 @@ def processRequest(req):
     global targett
     targett = makeYqlQuery(req)
     if targett is None:
-        break
-    res = trackpos(dictplay)
+        res = emptyresponderr(z)
+    else:
+        res = trackpos(dictplay)
     return res
 
 ###result = requests.get(yql_url, headers=headers)
@@ -94,6 +95,20 @@ def responderr(playl4):
         "source": "apiai-weather-webhook-sample"
     }
 
+def emptyresponderr(z):
+    global zspeech
+    zspeech = str("It's not in any playlists, sad times")
+    
+    print("Response:")
+    print(zspeech)
+
+    return {
+        "speech": zspeech,
+        "displayText": zspeech,
+        "data": zspeech,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
