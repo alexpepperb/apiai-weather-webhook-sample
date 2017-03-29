@@ -48,7 +48,7 @@ def processRequest(req):
     global targett
     targett = makeYqlQuery(req)
     if len(targett) == 0:
-        res = emptyresponderr(z)
+        res = emptyresponderr(req)
     else:
         res = trackpos(dictplay)
     return res
@@ -95,7 +95,7 @@ def responderr(playl4):
         "source": "apiai-weather-webhook-sample"
     }
 
-def emptyresponderr(z):
+def emptyresponderr(req):
     global zspeech
     zspeech = str("It's not in any playlists, sad times")
     
