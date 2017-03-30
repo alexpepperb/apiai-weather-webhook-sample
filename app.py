@@ -85,7 +85,9 @@ def responderr(playl4):
     if len(playl4) == 0:
         speech = str("It doesn't look like that track is in any playlists")
     else:
-        speech = str(playl4)
+        speech = ""
+        for i in playl4:
+            speech = speech + "\n" + str(playl4[i])
     
     print("Response:")
     print(speech)
